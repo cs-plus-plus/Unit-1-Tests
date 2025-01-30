@@ -1,0 +1,70 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: testAddIntegers
+      id: testaddintegers
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testAddIntegers
+        setup-command: mvn compile
+        command: mvn -Dtest=Unit1Test#testAddIntegers test
+        timeout: 2
+        max-score: 20
+    - name: testCastDoubleToInt
+      id: testcastdoubletoint
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testCastDoubleToInt
+        setup-command: mvn compile
+        command: mvn -Dtest=Unit1Test#testCastDoubleToInt test
+        timeout: 2
+        max-score: 20
+    - name: testIsTrue
+      id: testistrue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testIsTrue
+        setup-command: mvn compile
+        command: mvn -Dtest=Unit1Test#testIsTrue test
+        timeout: 2
+        max-score: 20
+    - name: testMaxValueMinusOne
+      id: testmaxvalueminusone
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMaxValueMinusOne
+        setup-command: mvn compile
+        command: mvn -Dtest=Unit1Test#testMaxValueMinusOne test
+        timeout: 2
+        max-score: 20
+    - name: testMultiplyIntAndDouble
+      id: testmultiplyintanddouble
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMultiplyIntAndDouble
+        setup-command: mvn compile
+        command: mvn -Dtest=Unit1Test#testMultiplyIntAndDouble test
+        timeout: 2
+        max-score: 20
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTADDINTEGERS_RESULTS: "${{steps.testaddintegers.outputs.result}}"
+        TESTCASTDOUBLETOINT_RESULTS: "${{steps.testcastdoubletoint.outputs.result}}"
+        TESTISTRUE_RESULTS: "${{steps.testistrue.outputs.result}}"
+        TESTMAXVALUEMINUSONE_RESULTS: "${{steps.testmaxvalueminusone.outputs.result}}"
+        TESTMULTIPLYINTANDDOUBLE_RESULTS: "${{steps.testmultiplyintanddouble.outputs.result}}"
+      with:
+        runners: testaddintegers,testcastdoubletoint,testistrue,testmaxvalueminusone,testmultiplyintanddouble
