@@ -1,56 +1,98 @@
-# Unit 1 Java Programming Project
+# Unit 1: Primitive Types
 
-This project is designed for Mr. Hare's APCS-A, focusing on Unit 1 concepts such as primitive data types, variable declaration, operators, and casting. The project includes a set of methods that students need to implement, along with unit tests to verify their functionality.
+AP Computer Science A
 
-## Project Structure
+## Overview
 
-- **`Unit1.java`**: Contains method headers and task descriptions. Students are required to implement the method bodies.
-- **`Unit1Test.java`**: JUnit test cases for each method in `Unit1.java`. These tests validate the correctness of the implemented methods.
-- **`pom.xml`**: Maven configuration file that manages dependencies and plugins required to build and run the project.
-
-## Prerequisites
-
-- Java 17 (or compatible version)
-- Maven 3.x
+This project covers **Unit 1: Primitive Types** concepts including data types, variable declaration, arithmetic operators, and type casting. Implement the 5 methods in `Unit1.java` and run the provided JUnit tests to verify your work.
 
 ## Getting Started
 
-### Accept the Project
+### Option 1: GitHub Codespaces (Recommended)
 
-Use the link found in Google Classroom to accept the assignment in GitHub Classroom.
+1. Click the green **Code** button on this repository
+2. Select the **Codespaces** tab
+3. Click **Create codespace on main**
+4. Wait for the environment to build (~2 minutes the first time)
+5. Start coding in `src/main/java/unit1/Unit1.java`
 
-### Clone the Repository
+> **Note:** If the Java extension shows errors on first load, press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows) and run **"Developer: Reload Window"**. This is a one-time setup step.
 
-Clone this repository to your local machine using GitHub Desktop.
+### Option 2: Local Development
 
-### Run Tests
+1. Accept the assignment via the GitHub Classroom link
+2. Clone the repository using GitHub Desktop
+3. Open the project in your IDE (VS Code, IntelliJ, or Eclipse)
+4. **Requirements:** Java 17+, Maven 3.x
 
-Run the JUnit tests to verify your implementations.
+## Running Tests
 
-## Method Descriptions
+### In VS Code / Codespaces
 
-Students need to implement the following methods in `Unit1.java`:
+Click the green play button next to any test method in `Unit1Test.java`, or open the **Testing** sidebar (beaker icon).
 
-1. **`addIntegers(int a, int b)`**: Returns the sum of two integers.
-2. **`castDoubleToInt(double value)`**: Converts a double to an integer by casting.
-3. **`isTrue(boolean value)`**: Returns `true` if the boolean parameter is true, otherwise returns `false`.
-4. **`maxValueMinusOne()`**: Returns the maximum integer value (`Integer.MAX_VALUE`) minus one.
-5. **`multiplyIntAndDouble(int a, double b)`**: Returns the product of an integer and a double as a double.
+### Command Line
 
-## Common Mistakes to Avoid
+Run all tests:
+```
+mvn test
+```
 
-- Forgetting that Java is case-sensitive (e.g., `myScore` is not the same as `myscore`).
-- Forgetting to specify the type when declaring a variable (e.g., using `name = value;` instead of `type name = value;`).
-- Using a variable name without declaring the variable.
-- Using the wrong name for a variable (e.g., declaring it as `studentTotal` but using `total` later).
-- Using the wrong type for a variable, especially when using integer types in calculations that yield fractional results. Either cast one value to double or use a double variable.
-- Using `==` to compare double values instead of testing if the absolute value of the difference between the values is below a certain threshold.
-- Assuming 0 is smaller than other int values; use `Integer.MIN_VALUE` for the smallest possible int value.
+Run a single method's tests:
+```
+mvn -Dtest=Unit1Test#testAddIntegers test
+```
 
-## Contributing
+## Scoring
 
-Feel free to submit issues or pull requests if you find bugs or have suggestions for improvement.
+| # | Method | Points | Concepts |
+|---|--------|--------|----------|
+| 1 | `addIntegers(int a, int b)` | 20 | `int` addition, return values |
+| 2 | `castDoubleToInt(double value)` | 20 | Type casting, truncation vs rounding |
+| 3 | `isTrue(boolean value)` | 20 | `boolean` type, return values |
+| 4 | `maxValueMinusOne()` | 20 | `Integer.MAX_VALUE`, overflow awareness |
+| 5 | `multiplyIntAndDouble(int a, double b)` | 20 | Mixed-type arithmetic, type promotion |
+| | **Total** | **100** | |
+
+## Method Details
+
+### 1. `addIntegers(int a, int b)` — 20 points
+Returns the sum of two integers.
+- `addIntegers(2, 3)` → `5`
+- `addIntegers(0, 0)` → `0`
+- `addIntegers(-2, 3)` → `1`
+
+### 2. `castDoubleToInt(double value)` — 20 points
+Converts a double to an int by casting (truncation, not rounding).
+- `castDoubleToInt(3.99)` → `3` (NOT 4)
+- `castDoubleToInt(0.49)` → `0`
+- `castDoubleToInt(-3.99)` → `-3`
+
+### 3. `isTrue(boolean value)` — 20 points
+Returns the boolean value passed in.
+- `isTrue(true)` → `true`
+- `isTrue(false)` → `false`
+
+### 4. `maxValueMinusOne()` — 20 points
+Returns `Integer.MAX_VALUE - 1` (2,147,483,646).
+
+### 5. `multiplyIntAndDouble(int a, double b)` — 20 points
+Returns the product of an int and a double as a double.
+- `multiplyIntAndDouble(2, 3.0)` → `6.0`
+- `multiplyIntAndDouble(3, 2.5)` → `7.5`
+
+## Common Mistakes
+
+- Forgetting that casting a `double` to `int` **truncates** (removes decimals) rather than rounds
+- Using `==` to compare `double` values (use a threshold instead)
+- Not understanding that `int * double` automatically promotes to `double`
+- Confusing `Integer.MAX_VALUE` with `Integer.MIN_VALUE`
+- Using a variable name without declaring it first
+
+## Autograding
+
+Your code is automatically graded when you push to GitHub. Check the **Actions** tab to see your score. Each method is tested independently — you earn points for each method you complete correctly.
 
 ## Contact
 
-For any questions, please contact [kevin@csplusplus.com](mailto:kevin@csplusplus.com).
+For questions, contact [kevin@csplusplus.com](mailto:kevin@csplusplus.com)
