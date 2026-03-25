@@ -1,98 +1,262 @@
-# Unit 1: Primitive Types
+# CS++ Java — Unit 1: Primitive Types
 
-AP Computer Science A
+> **Unit 1** | 100 Points | 5 Autograded Tests
 
-## Overview
+In this assignment you will practice declaring variables, performing arithmetic, type casting between `int` and `double`, and working with boolean values. All methods are `static` — you call them with `Unit1.methodName()`.
 
-This project covers **Unit 1: Primitive Types** concepts including data types, variable declaration, arithmetic operators, and type casting. Implement the 5 methods in `Unit1.java` and run the provided JUnit tests to verify your work.
+---
 
-## Getting Started
+## Table of Contents
 
-### Option 1: GitHub Codespaces (Recommended)
+1. [Concepts You Need](#concepts-you-need)
+2. [Project Overview](#project-overview)
+3. [Methods to Implement](#methods-to-implement)
+4. [File Structure](#file-structure)
+5. [Autograding](#autograding)
+6. [Try It Yourself — Practice Examples](#try-it-yourself--practice-examples)
+7. [Tips for Success](#tips-for-success)
+8. [FAQ](#faq)
 
-1. Click the green **Code** button on this repository
-2. Select the **Codespaces** tab
-3. Click **Create codespace on main**
-4. Wait for the environment to build (~2 minutes the first time)
-5. Start coding in `src/main/java/unit1/Unit1.java`
+---
 
-> **Note:** If the Java extension shows errors on first load, press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows) and run **"Developer: Reload Window"**. This is a one-time setup step.
+## Concepts You Need
 
-### Option 2: Local Development
+### Primitive Data Types
 
-1. Accept the assignment via the GitHub Classroom link
-2. Clone the repository using GitHub Desktop
-3. Open the project in your IDE (VS Code, IntelliJ, or Eclipse)
-4. **Requirements:** Java 17+, Maven 3.x
+Java has eight primitive types. The four you will use most:
 
-## Running Tests
+| Type | What It Stores | Example |
+|------|---------------|---------|
+| `int` | Whole numbers | `int age = 17;` |
+| `double` | Decimal numbers | `double gpa = 3.85;` |
+| `boolean` | `true` or `false` | `boolean passed = true;` |
+| `char` | Single character | `char grade = 'A';` |
 
-### In VS Code / Codespaces
+### Arithmetic Operators
 
-Click the green play button next to any test method in `Unit1Test.java`, or open the **Testing** sidebar (beaker icon).
+```java
+int a = 10, b = 3;
 
-### Command Line
-
-Run all tests:
+a + b    // 13    (addition)
+a - b    // 7     (subtraction)
+a * b    // 30    (multiplication)
+a / b    // 3     (integer division — truncates the decimal)
+a % b    // 1     (modulo — remainder)
 ```
-mvn test
+
+**Important:** When both operands are `int`, division truncates. `10 / 3` is `3`, not `3.33`.
+
+### Type Casting
+
+Convert between types using a cast:
+
+```java
+// double to int — truncates (does NOT round)
+double x = 9.99;
+int y = (int) x;    // y is 9
+
+// int to double
+int a = 5;
+double b = (double) a;   // b is 5.0
+
+// Mixed arithmetic
+int c = 7;
+double d = 2.0;
+double result = c * d;   // result is 14.0 (int is promoted to double)
 ```
 
-Run a single method's tests:
+### Integer.MAX_VALUE
+
+Java's `int` type can hold values up to `2,147,483,647`. This maximum is stored in the constant:
+
+```java
+int max = Integer.MAX_VALUE;   // 2147483647
 ```
-mvn -Dtest=Unit1Test#testAddIntegers test
+
+### Boolean Values
+
+A `boolean` variable holds exactly `true` or `false`:
+
+```java
+boolean isRaining = true;
+boolean isSunny = false;
+
+// You can return a boolean from a method
+public static boolean isPositive(int n) {
+    return n > 0;
+}
 ```
 
-## Scoring
+---
 
-| # | Method | Points | Concepts |
-|---|--------|--------|----------|
-| 1 | `addIntegers(int a, int b)` | 20 | `int` addition, return values |
-| 2 | `castDoubleToInt(double value)` | 20 | Type casting, truncation vs rounding |
-| 3 | `isTrue(boolean value)` | 20 | `boolean` type, return values |
-| 4 | `maxValueMinusOne()` | 20 | `Integer.MAX_VALUE`, overflow awareness |
-| 5 | `multiplyIntAndDouble(int a, double b)` | 20 | Mixed-type arithmetic, type promotion |
-| | **Total** | **100** | |
+## Project Overview
 
-## Method Details
+You will implement five methods in `Unit1.java`. Each method demonstrates a fundamental concept of primitive types in Java.
 
-### 1. `addIntegers(int a, int b)` — 20 points
-Returns the sum of two integers.
-- `addIntegers(2, 3)` → `5`
-- `addIntegers(0, 0)` → `0`
-- `addIntegers(-2, 3)` → `1`
+---
 
-### 2. `castDoubleToInt(double value)` — 20 points
-Converts a double to an int by casting (truncation, not rounding).
-- `castDoubleToInt(3.99)` → `3` (NOT 4)
-- `castDoubleToInt(0.49)` → `0`
-- `castDoubleToInt(-3.99)` → `-3`
+## Methods to Implement
 
-### 3. `isTrue(boolean value)` — 20 points
-Returns the boolean value passed in.
-- `isTrue(true)` → `true`
-- `isTrue(false)` → `false`
+### 1. addIntegers(int a, int b)
+Return the sum of two integers.
 
-### 4. `maxValueMinusOne()` — 20 points
-Returns `Integer.MAX_VALUE - 1` (2,147,483,646).
+```java
+addIntegers(2, 3)    // returns 5
+addIntegers(-1, 1)   // returns 0
+addIntegers(0, 0)    // returns 0
+```
 
-### 5. `multiplyIntAndDouble(int a, double b)` — 20 points
-Returns the product of an int and a double as a double.
-- `multiplyIntAndDouble(2, 3.0)` → `6.0`
-- `multiplyIntAndDouble(3, 2.5)` → `7.5`
+### 2. castDoubleToInt(double value)
+Cast the double to an int and return it. Remember: casting truncates, it does not round.
 
-## Common Mistakes
+```java
+castDoubleToInt(9.99)   // returns 9
+castDoubleToInt(3.14)   // returns 3
+castDoubleToInt(-2.7)   // returns -2
+```
 
-- Forgetting that casting a `double` to `int` **truncates** (removes decimals) rather than rounds
-- Using `==` to compare `double` values (use a threshold instead)
-- Not understanding that `int * double` automatically promotes to `double`
-- Confusing `Integer.MAX_VALUE` with `Integer.MIN_VALUE`
-- Using a variable name without declaring it first
+### 3. isTrue(boolean value)
+Return the boolean value that is passed in.
+
+```java
+isTrue(true)    // returns true
+isTrue(false)   // returns false
+```
+
+### 4. maxValueMinusOne()
+Return `Integer.MAX_VALUE - 1`. This method takes no parameters.
+
+```java
+maxValueMinusOne()   // returns 2147483646
+```
+
+### 5. multiplyIntAndDouble(int a, double b)
+Multiply the int and double together and return the result as a double.
+
+```java
+multiplyIntAndDouble(3, 2.5)    // returns 7.5
+multiplyIntAndDouble(4, 0.5)    // returns 2.0
+multiplyIntAndDouble(0, 9.99)   // returns 0.0
+```
+
+---
+
+## File Structure
+
+```
+Unit-1-Tests/
+├── pom.xml                                <-- Maven config (DO NOT MODIFY)
+├── src/
+│   ├── main/java/unit1/
+│   │   └── Unit1.java                     <-- YOUR CODE GOES HERE
+│   └── test/java/unit1/
+│       └── Unit1Test.java                 <-- Tests (DO NOT MODIFY)
+└── .github/
+    └── workflows/
+        └── classroom.yml                  <-- Autograding (DO NOT MODIFY)
+```
+
+**Edit only `Unit1.java`.**
+
+---
 
 ## Autograding
 
-Your code is automatically graded when you push to GitHub. Check the **Actions** tab to see your score. Each method is tested independently — you earn points for each method you complete correctly.
+| Test | What It Checks | Points |
+|------|---------------|--------|
+| testAddIntegers | `addIntegers(2, 3)` returns `5` | 20 |
+| testCastDoubleToInt | `castDoubleToInt(9.99)` returns `9` | 20 |
+| testIsTrue | `isTrue(true)` returns `true` | 20 |
+| testMaxValueMinusOne | `maxValueMinusOne()` returns `2147483646` | 20 |
+| testMultiplyIntAndDouble | `multiplyIntAndDouble(3, 2.5)` returns `7.5` | 20 |
 
-## Contact
+**Total: 100 points**
 
-For questions, contact [kevin@csplusplus.com](mailto:kevin@csplusplus.com)
+---
+
+## Try It Yourself — Practice Examples
+
+Create `Practice.java` in the same directory and run it with `javac Practice.java && java Practice`.
+
+**Example 1 — Integer arithmetic:**
+```java
+// Practice.java
+public class Practice {
+    public static void main(String[] args) {
+        int a = 17;
+        int b = 5;
+        System.out.println("Sum: " + (a + b));         // 22
+        System.out.println("Difference: " + (a - b));   // 12
+        System.out.println("Product: " + (a * b));       // 85
+        System.out.println("Quotient: " + (a / b));      // 3 (not 3.4!)
+        System.out.println("Remainder: " + (a % b));     // 2
+    }
+}
+```
+
+**Example 2 — Type casting:**
+```java
+// Practice.java
+public class Practice {
+    public static void main(String[] args) {
+        double price = 29.99;
+        int dollars = (int) price;
+        System.out.println("Price: " + price);     // 29.99
+        System.out.println("Dollars: " + dollars);  // 29 (truncated)
+
+        int x = 7;
+        int y = 2;
+        System.out.println("Int division: " + (x / y));          // 3
+        System.out.println("Double division: " + ((double) x / y)); // 3.5
+    }
+}
+```
+
+**Example 3 — Mixed types:**
+```java
+// Practice.java
+public class Practice {
+    public static void main(String[] args) {
+        int count = 4;
+        double multiplier = 2.5;
+        double result = count * multiplier;
+        System.out.println("Result: " + result);  // 10.0
+
+        System.out.println("MAX_VALUE: " + Integer.MAX_VALUE);         // 2147483647
+        System.out.println("MAX_VALUE - 1: " + (Integer.MAX_VALUE - 1)); // 2147483646
+    }
+}
+```
+
+---
+
+## Tips for Success
+
+1. All methods in this assignment are `static` — do not create an object to call them
+2. Casting a double to int always truncates (drops the decimal), it never rounds
+3. When both operands are `int`, the result is `int`. To get a double result, cast one operand
+4. `Integer.MAX_VALUE` is a built-in constant — you do not need to memorize the number
+5. Make sure your method signatures match exactly: same name, same parameter types, same return type
+6. Run `mvn test` after each method to verify before moving on
+
+---
+
+## FAQ
+
+**Q: What is the difference between `int` and `double`?**
+`int` stores whole numbers only (no decimals). `double` stores decimal numbers. When you divide two ints, the result is truncated to an int.
+
+**Q: Why does `(int) 9.99` give `9` and not `10`?**
+Casting to int truncates — it drops everything after the decimal point. It does not round. Use `Math.round()` if you need rounding (but this assignment wants truncation).
+
+**Q: What happens if I add 1 to `Integer.MAX_VALUE`?**
+It overflows and wraps around to `Integer.MIN_VALUE` (-2147483648). This is why the assignment asks for `MAX_VALUE - 1` instead.
+
+**Q: Do I need to handle negative numbers?**
+Only where the tests send them. For `addIntegers` and `castDoubleToInt`, the tests may use negative values, so make sure your logic works for those cases.
+
+---
+
+View all assignments and scoring breakdowns at [csplusplus.com/maven-tests](https://csplusplus.com/maven-tests)
+
+*CS++ — AP Computer Science A — [csplusplus.com](https://csplusplus.com)*
